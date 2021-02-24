@@ -51,7 +51,7 @@ class App extends Component {
   render() {
     const list = this.state.mycontacts.map((contact,index) => {
       return (
-        <tr style={{display:'flex', alignItems: 'center'}}>
+        <tr key={contact.id} style={{display:'flex', alignItems: 'center'}}>
           <img style={{width: '150px', height: '150px', margin: '10px'}} src={contact.pictureUrl} alt=""/>
           <p style={{margin: '10px'}}>{contact.name}</p>
           <p style={{margin: '10px'}}>{contact.popularity}</p>
