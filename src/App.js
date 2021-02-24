@@ -19,6 +19,26 @@ class App extends Component {
     }))
   }
 
+  sortByNameHandler = () => {
+    let dummyArr = this.state.mycontacts.slice()
+    dummyArr.sort((a,b) => {
+      return a.name.localeCompare(b.name)
+    })
+    this.setState((state, props) =>  ({
+      mycontacts: [...dummyArr ]
+    }))
+  }
+
+  sortByPopularityHandler = () => {
+    let dummyArr = this.state.mycontacts.slice()
+    dummyArr.sort((a,b) => {
+      return b.popularity - a.popularity
+    })
+    this.setState((state, props) =>  ({
+      mycontacts: [...dummyArr ]
+    }))
+  }
+
   render() {
     const list = this.state.mycontacts.map(contact => {
       console.log(contact.name)
@@ -35,6 +55,8 @@ class App extends Component {
       <div className="App">
           <h1 className="App-header">IronContacts</h1>
           <button onClick={this.randomContactHandler}>Add Random Contact</button>
+          <button onClick={this.sortByNameHandler}>Sort by name</button>
+          <button onClick={this.sortByPopularityHandler}>Sort by popularity</button>
           <h2>Picture Name Popularity</h2>
           <div style={{display:'flex', flexDirection: 'column', alignItems:'flex-start', marginLeft: '50px'}}>
             {list}
