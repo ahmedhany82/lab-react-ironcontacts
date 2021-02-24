@@ -9,12 +9,18 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        contacts: contacts.slice(0,5)
+        mycontacts: contacts.slice(0,5)
     }
-}
+  }
+
+  randomContactHandler = () => {
+    this.setState((state, props) =>  ({
+      mycontacts: [...state.mycontacts, contacts[Math.floor(Math.random() * (contacts.length - 5) + 5)]]
+    }))
+  }
 
   render() {
-    const list = this.state.contacts.map(contact => {
+    const list = this.state.mycontacts.map(contact => {
       console.log(contact.name)
       return (
         <div style={{display:'flex'}}>
@@ -28,6 +34,7 @@ class App extends Component {
     return (
       <div className="App">
           <h1 className="App-header">IronContacts</h1>
+          <button onClick={this.randomContactHandler}>Add Random Contact</button>
           <h2>Picture Name Popularity</h2>
           <div style={{display:'flex', flexDirection: 'column', alignItems:'flex-start', marginLeft: '50px'}}>
             {list}
