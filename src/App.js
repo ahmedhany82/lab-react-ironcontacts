@@ -39,28 +39,43 @@ class App extends Component {
     }))
   }
 
+  deleteHandler = (index) => {
+    console.log(index)
+    let dummyArr = this.state.mycontacts.slice()
+    dummyArr.splice(index,1)
+    this.setState((state, props) =>  ({
+      mycontacts: [...dummyArr ]
+    }))
+}
+
   render() {
-    const list = this.state.mycontacts.map(contact => {
-      console.log(contact.name)
+    const list = this.state.mycontacts.map((contact,index) => {
       return (
-        <div style={{display:'flex'}}>
+        <tr style={{display:'flex', alignItems: 'center'}}>
           <img style={{width: '150px', height: '150px', margin: '10px'}} src={contact.pictureUrl} alt=""/>
           <p style={{margin: '10px'}}>{contact.name}</p>
           <p style={{margin: '10px'}}>{contact.popularity}</p>
-        </div>
+          <button style={{width: '60px', height: '20px', margin: '20px'}}onClick={() => this.deleteHandler(index)}>Delete</button>
+        </tr>
       )  
     })
-    console.log(list)
+
     return (
       <div className="App">
           <h1 className="App-header">IronContacts</h1>
-          <button onClick={this.randomContactHandler}>Add Random Contact</button>
-          <button onClick={this.sortByNameHandler}>Sort by name</button>
-          <button onClick={this.sortByPopularityHandler}>Sort by popularity</button>
-          <h2>Picture Name Popularity</h2>
-          <div style={{display:'flex', flexDirection: 'column', alignItems:'flex-start', marginLeft: '50px'}}>
-            {list}
+          <div style={{display:'flex'}}>
+            <button style={{margin: '10px'}} onClick={this.randomContactHandler}>Add Random Contact</button>
+            <button style={{margin: '10px'}} onClick={this.sortByNameHandler}>Sort by name</button>
+            <button style={{margin: '10px'}} onClick={this.sortByPopularityHandler}>Sort by popularity</button>
           </div>
+          <table style={{tableLayout: "auto", width: "50%", paddingLeft: '150px'}}>
+          <tr style={{display: 'flex', justifyContent: 'space-between', marginLeft: '10px'}}>
+            <th>Picture</th>
+            <th>Name</th>
+            <th>Popularity</th>
+          </tr>
+            {list}
+        </table>
       </div>
     )  
   }
